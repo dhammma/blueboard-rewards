@@ -17,9 +17,8 @@ import {
   makeSelectError,
   makeSelectRewards,
 } from 'containers/App/selectors';
-import H2 from 'components/H2';
-import RewardsList from 'components/RewardsList';
-import CenteredSection from './CenteredSection';
+import RewardList from 'components/RewardList';
+import RewardFilters from 'containers/RewardsFilters';
 import Section from './Section';
 import messages from './messages';
 import * as AppActions from '../App/actions';
@@ -40,7 +39,7 @@ export function RewardsPage({ loading, error, rewards, loadRewards }) {
   };
 
   return (
-    <article>
+    <div>
       <Helmet>
         <title>Rewards Page</title>
         <meta
@@ -49,22 +48,14 @@ export function RewardsPage({ loading, error, rewards, loadRewards }) {
         />
       </Helmet>
       <div>
-        <CenteredSection>
-          <H2>
-            <FormattedMessage {...messages.startProjectHeader} />
-          </H2>
-          <p>
-            <FormattedMessage {...messages.startProjectMessage} />
-          </p>
-        </CenteredSection>
         <Section>
-          <H2>
-            <FormattedMessage {...messages.trymeHeader} />
-          </H2>
-          <RewardsList {...rewardsListProps} />
+          <RewardFilters />
+        </Section>
+        <Section>
+          <RewardList {...rewardsListProps} />
         </Section>
       </div>
-    </article>
+    </div>
   );
 }
 

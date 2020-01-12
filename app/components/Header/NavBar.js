@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-export default styled.div`
-  text-align: left;
-  margin-top: 2em;
-  padding-left: 2em;
+const border = '1px solid #e5e5e5;';
 
-  background-color: #41addd;
+export default styled.div`
+  border-top: ${border};
+  border-bottom: ${border};
 `;
