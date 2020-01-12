@@ -1,8 +1,11 @@
 {
   "boilerplate.components.Footer.author.message": "Made with love by {author}.",
   "boilerplate.components.Footer.license.message": "This project is licensed under the MIT license.",
-  "boilerplate.components.Header.features": "Features",
-  "boilerplate.components.Header.home": "Home",
+  "boilerplate.components.Header.all": "All",
+  "boilerplate.components.Header.new": "New",
+  "boilerplate.components.Header.scheduled": "Scheduled",
+  "boilerplate.components.Header.redeemed": "Redeemed",
+  "boilerplate.components.Header.completed": "Completed",
   "boilerplate.containers.FeaturePage.css.header": "Features",
   "boilerplate.containers.FeaturePage.css.message": "Next generation CSS",
   "boilerplate.containers.FeaturePage.feedback.header": "Instant feedback",

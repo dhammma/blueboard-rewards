@@ -1,12 +1,13 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 
-export default styled(Link)`
+const HeaderLink = styled(({ active, ...rest }) => <Link {...rest} />)`
   display: inline-flex;
-  padding: 0.25em 2em;
-  margin: 1em;
+  padding: 0.75em 2em;
+  margin: 0em;
   text-decoration: none;
-  border-radius: 4px;
   -webkit-font-smoothing: antialiased;
   -webkit-touch-callout: none;
   user-select: none;
@@ -15,11 +16,22 @@ export default styled(Link)`
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 16px;
-  border: 2px solid #41addd;
-  color: #41addd;
+  color: white;
 
-  &:active {
-    background: #41addd;
-    color: #fff;
-  }
+  ${props =>
+    props.active
+      ? css`
+          background: #006191;
+        `
+      : css`
+          &:hover {
+            background: #2894c4;
+          }
+        `}
 `;
+
+HeaderLink.propTypes = {
+  active: PropTypes.bool.isRequired,
+};
+
+export default HeaderLink;
