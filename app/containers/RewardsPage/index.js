@@ -33,7 +33,7 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-const key = 'home';
+const key = 'rewards';
 
 export function HomePage({
   username,
@@ -60,7 +60,7 @@ export function HomePage({
   return (
     <article>
       <Helmet>
-        <title>Home Page</title>
+        <title>Rewards Page</title>
         <meta
           name="description"
           content="A React.js Boilerplate application homepage"

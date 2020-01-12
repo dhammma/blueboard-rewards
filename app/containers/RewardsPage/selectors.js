@@ -5,7 +5,7 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectHome = state => state.home || initialState;
+const selectHome = state => state.rewards || initialState;
 
 const makeSelectUsername = () =>
   createSelector(

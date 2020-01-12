@@ -1,4 +1,8 @@
-import { LOAD_REPOS, LOAD_REPOS_SUCCESS, LOAD_REPOS_ERROR } from '../constants';
+import {
+  LOAD_REWARDS,
+  LOAD_REWARDS_SUCCESS,
+  LOAD_REWARDS_ERROR,
+} from '../constants';
 
 import { loadRepos, reposLoaded, repoLoadingError } from '../actions';
 
@@ -6,7 +10,7 @@ describe('App Actions', () => {
   describe('loadRepos', () => {
     it('should return the correct type', () => {
       const expectedResult = {
-        type: LOAD_REPOS,
+        type: LOAD_REWARDS,
       };
 
       expect(loadRepos()).toEqual(expectedResult);
@@ -18,7 +22,7 @@ describe('App Actions', () => {
       const fixture = ['Test'];
       const username = 'test';
       const expectedResult = {
-        type: LOAD_REPOS_SUCCESS,
+        type: LOAD_REWARDS_SUCCESS,
         repos: fixture,
         username,
       };
@@ -33,7 +37,7 @@ describe('App Actions', () => {
         msg: 'Something went wrong!',
       };
       const expectedResult = {
-        type: LOAD_REPOS_ERROR,
+        type: LOAD_REWARDS_ERROR,
         error: fixture,
       };
 
