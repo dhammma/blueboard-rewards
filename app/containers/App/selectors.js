@@ -27,6 +27,12 @@ const makeSelectRewards = () =>
     globalState => globalState.rewards,
   );
 
+const makeSelectUsers = () =>
+  createSelector(
+    selectGlobal,
+    globalState => globalState.users,
+  );
+
 const makeSelectLocation = () =>
   createSelector(
     selectRouter,
@@ -38,5 +44,6 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectRewards,
+  makeSelectUsers,
   makeSelectLocation,
 };

@@ -6,7 +6,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { FormattedNumber } from 'react-intl';
+import get from 'lodash/get';
 
 import ListItem from 'components/ListItem';
 import RewardId from './Id';
@@ -17,18 +19,18 @@ import RewardStatus from './Status';
 import RewardDate from './Date';
 import Row from './Row';
 
-/*
-experience      user
-id              date
-status
-*/
 export function RewardListItem(props) {
   const { item } = props;
+  const user = useSelector(state =>
+    get(state, ['global', 'users', get(item, 'user'), 'user'], null),
+  );
 
   if (!item) {
     console.log('remove it');
     return null;
   }
+
+  console.log('render item');
 
   // Put together the content of the repository
   const content = (
@@ -37,7 +39,7 @@ export function RewardListItem(props) {
         <RewardLink href={item.html_url} target="_blank">
           {item.experience}
         </RewardLink>
-        <RewardUser>{item.user}</RewardUser>
+        <RewardUser>{user ? user.name : '-'}</RewardUser>
       </Row>
       <Row>
         <RewardId>#{item.id}</RewardId>
@@ -48,7 +50,7 @@ export function RewardListItem(props) {
   );
 
   // Render the content into a list item
-  return <ListItem key={`repo-list-item-${item.full_name}`} item={content} />;
+  return <ListItem key={`repo-list-item-${item.id}`} item={content} />;
 }
 
 RewardListItem.propTypes = {

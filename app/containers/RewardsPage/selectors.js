@@ -1,16 +1,7 @@
-/**
- * Homepage selectors
- */
-
 import { createSelector } from 'reselect';
-import { initialState } from './reducer';
+import { makeSelectRewards, makeSelectUsers } from 'containers/app/selectors';
 
-const selectHome = state => state.rewards || initialState;
+const selectRewards = makeSelectRewards();
+const selectUsers = makeSelectUsers();
 
-const makeSelectUsername = () =>
-  createSelector(
-    selectHome,
-    homeState => homeState.username,
-  );
-
-export { selectHome, makeSelectUsername };
+export { selectRewards, selectUsers };

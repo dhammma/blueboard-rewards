@@ -8,6 +8,8 @@ function List(props) {
   const ComponentToRender = props.component;
   let content = <div />;
 
+  console.log('render list');
+
   // If we have items, render them
   if (props.items) {
     content = props.items.map(item => (

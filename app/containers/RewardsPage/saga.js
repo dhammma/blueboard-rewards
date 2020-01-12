@@ -1,17 +1,31 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import {
+  all,
+  call,
+  put,
+  select,
+  takeEvery,
+  takeLatest,
+} from 'redux-saga/effects';
+import uniq from 'lodash/uniq';
 import { api } from 'services/api';
-import { LOAD_REWARDS } from 'containers/App/constants';
-import { rewardsLoaded, rewardsLoadingError } from 'containers/App/actions';
+import { LOAD_REWARDS, LOAD_USER } from 'containers/App/constants';
+import {
+  rewardsLoaded,
+  rewardsLoadingError,
+  loadUser,
+  userLoaded,
+  userLoadingError,
+} from 'containers/App/actions';
 import { makeSelectLocation } from 'containers/App/selectors';
 
-const getLocation = makeSelectLocation();
+const getLocationSelector = makeSelectLocation();
 
 /**
  * Rewards request/response handler
  */
 export function* getRewards() {
   try {
-    const location = yield select(getLocation);
+    const location = yield select(getLocationSelector);
     const status = location.pathname.slice(1);
     const options = {};
 
@@ -21,8 +35,21 @@ export function* getRewards() {
 
     const rewards = yield call(api.fetchRewards, options);
     yield put(rewardsLoaded(rewards));
+
+    const userIdList = uniq(rewards.map(item => item.user));
+    yield all(userIdList.map(userId => put(loadUser(userId))));
   } catch (err) {
     yield put(rewardsLoadingError(err));
+  }
+}
+
+export function* getUser({ userId }) {
+  try {
+    const user = yield call(api.fetchUser, userId);
+
+    yield put(userLoaded(userId, user));
+  } catch (err) {
+    yield put(userLoadingError(userId, err));
   }
 }
 
@@ -34,5 +61,8 @@ export default function* rewardsPageSaga() {
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield takeLatest(LOAD_REWARDS, getRewards);
+  yield all([
+    takeLatest(LOAD_REWARDS, getRewards),
+    takeEvery(LOAD_USER, getUser),
+  ]);
 }

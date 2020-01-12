@@ -13,9 +13,9 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
 import {
-  makeSelectRewards,
   makeSelectLoading,
   makeSelectError,
+  makeSelectRewards,
 } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import RewardsList from 'components/RewardsList';
