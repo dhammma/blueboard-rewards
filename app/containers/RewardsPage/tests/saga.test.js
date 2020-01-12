@@ -5,7 +5,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 
 import { LOAD_REWARDS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+import { rewardsLoaded, rewardsLoadingError } from 'containers/App/actions';
 
 import githubData, { getRepos } from '../saga';
 
@@ -27,7 +27,7 @@ describe('getRepos Saga', () => {
     expect(callDescriptor).toMatchSnapshot();
   });
 
-  it('should dispatch the reposLoaded action if it requests the data successfully', () => {
+  it('should dispatch the rewardsLoaded action if it requests the data successfully', () => {
     const response = [
       {
         name: 'First repo',
@@ -37,13 +37,13 @@ describe('getRepos Saga', () => {
       },
     ];
     const putDescriptor = getReposGenerator.next(response).value;
-    expect(putDescriptor).toEqual(put(reposLoaded(response, username)));
+    expect(putDescriptor).toEqual(put(rewardsLoaded(response, username)));
   });
 
-  it('should call the repoLoadingError action if the response errors', () => {
+  it('should call the rewardsLoadingError action if the response errors', () => {
     const response = new Error('Some error');
     const putDescriptor = getReposGenerator.throw(response).value;
-    expect(putDescriptor).toEqual(put(repoLoadingError(response)));
+    expect(putDescriptor).toEqual(put(rewardsLoadingError(response)));
   });
 });
 

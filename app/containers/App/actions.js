@@ -22,40 +22,39 @@ import {
 } from './constants';
 
 /**
- * Load the repositories, this action starts the request saga
+ * Load the rewards, this action starts the request saga
  *
  * @return {object} An action object with a type of LOAD_REWARDS
  */
-export function loadRepos() {
+export function loadRewards() {
   return {
     type: LOAD_REWARDS,
   };
 }
 
 /**
- * Dispatched when the repositories are loaded by the request saga
+ * Dispatched when the rewards are loaded by the request saga
  *
  * @param  {array} repos The repository data
  * @param  {string} username The current username
  *
  * @return {object}      An action object with a type of LOAD_REWARDS_SUCCESS passing the repos
  */
-export function reposLoaded(repos, username) {
+export function rewardsLoaded(rewards) {
   return {
     type: LOAD_REWARDS_SUCCESS,
-    repos,
-    username,
+    rewards,
   };
 }
 
 /**
- * Dispatched when loading the repositories fails
+ * Dispatched when loading the rewards fails
  *
  * @param  {object} error The error
  *
  * @return {object}       An action object with a type of LOAD_REWARDS_ERROR passing the error
  */
-export function repoLoadingError(error) {
+export function rewardsLoadingError(error) {
   return {
     type: LOAD_REWARDS_ERROR,
     error,

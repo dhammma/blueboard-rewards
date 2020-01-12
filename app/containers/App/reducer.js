@@ -9,8 +9,8 @@
 
 import produce from 'immer';
 import {
-  LOAD_REWARDS_SUCCESS,
   LOAD_REWARDS,
+  LOAD_REWARDS_SUCCESS,
   LOAD_REWARDS_ERROR,
 } from './constants';
 
@@ -18,10 +18,8 @@ import {
 export const initialState = {
   loading: false,
   error: false,
-  currentUser: false,
-  userData: {
-    repositories: false,
-  },
+  rewards: null,
+  users: {},
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -31,13 +29,12 @@ const appReducer = (state = initialState, action) =>
       case LOAD_REWARDS:
         draft.loading = true;
         draft.error = false;
-        draft.userData.repositories = false;
+        draft.rewards = null;
         break;
 
       case LOAD_REWARDS_SUCCESS:
-        draft.userData.repositories = action.repos;
+        draft.rewards = action.rewards;
         draft.loading = false;
-        draft.currentUser = action.username;
         break;
 
       case LOAD_REWARDS_ERROR:

@@ -105,7 +105,7 @@ describe('<HomePage />', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
         result.onSubmitForm();
-        expect(dispatch).toHaveBeenCalledWith(loadRepos());
+        expect(dispatch).toHaveBeenCalledWith(loadRewards());
       });
 
       it('should preventDefault if called with event', () => {

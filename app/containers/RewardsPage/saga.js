@@ -1,38 +1,28 @@
-/**
- * Gets the repositories of the user from Github
- */
-
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { api } from 'services/api';
 import { LOAD_REWARDS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
-
-import request from 'utils/request';
-import { makeSelectUsername } from 'containers/RewardsPage/selectors';
+import { rewardsLoaded, rewardsLoadingError } from 'containers/App/actions';
 
 /**
- * Github repos request/response handler
+ * Rewards request/response handler
  */
-export function* getRepos() {
-  // Select username from store
-  const username = yield select(makeSelectUsername());
-  const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
-
+export function* getRewards() {
   try {
     // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL);
-    yield put(reposLoaded(repos, username));
+    const repos = yield call(api.fetchRewards);
+    yield put(rewardsLoaded(repos));
   } catch (err) {
-    yield put(repoLoadingError(err));
+    yield put(rewardsLoadingError(err));
   }
 }
 
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* githubData() {
-  // Watches for LOAD_REWARDS actions and calls getRepos when one comes in.
+export default function* rewardsPageSaga() {
+  // Watches for LOAD_REWARDS actions and calls getRewards when one comes in.
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield takeLatest(LOAD_REWARDS, getRepos);
+  yield takeLatest(LOAD_REWARDS, getRewards);
 }

@@ -4,7 +4,7 @@ import {
   LOAD_REWARDS_ERROR,
 } from '../constants';
 
-import { loadRepos, reposLoaded, repoLoadingError } from '../actions';
+import { loadRepos, rewardsLoaded, rewardsLoadingError } from '../actions';
 
 describe('App Actions', () => {
   describe('loadRepos', () => {
@@ -13,11 +13,11 @@ describe('App Actions', () => {
         type: LOAD_REWARDS,
       };
 
-      expect(loadRepos()).toEqual(expectedResult);
+      expect(loadRewards()).toEqual(expectedResult);
     });
   });
 
-  describe('reposLoaded', () => {
+  describe('rewardsLoaded', () => {
     it('should return the correct type and the passed repos', () => {
       const fixture = ['Test'];
       const username = 'test';
@@ -27,11 +27,11 @@ describe('App Actions', () => {
         username,
       };
 
-      expect(reposLoaded(fixture, username)).toEqual(expectedResult);
+      expect(rewardsLoaded(fixture, username)).toEqual(expectedResult);
     });
   });
 
-  describe('repoLoadingError', () => {
+  describe('rewardsLoadingError', () => {
     it('should return the correct type and the error', () => {
       const fixture = {
         msg: 'Something went wrong!',
@@ -41,7 +41,7 @@ describe('App Actions', () => {
         error: fixture,
       };
 
-      expect(repoLoadingError(fixture)).toEqual(expectedResult);
+      expect(rewardsLoadingError(fixture)).toEqual(expectedResult);
     });
   });
 });

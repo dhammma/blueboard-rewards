@@ -1,37 +1,32 @@
 /**
- * RepoListItem
+ * RewardListItem
  *
  * Lists the name and the issue count of a repository
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { FormattedNumber } from 'react-intl';
 
-import { makeSelectCurrentUser } from 'containers/App/selectors';
 import ListItem from 'components/ListItem';
 import IssueIcon from './IssueIcon';
 import IssueLink from './IssueLink';
 import RepoLink from './RepoLink';
 import Wrapper from './Wrapper';
 
-export function RepoListItem(props) {
+export function RewardListItem(props) {
   const { item } = props;
-  let nameprefix = '';
 
-  // If the repository is owned by a different person than we got the data for
-  // it's a fork and we should show the name of the owner
-  if (item.owner.login !== props.currentUser) {
-    nameprefix = `${item.owner.login}/`;
+  if (!item) {
+    console.log('remove it');
+    return null;
   }
 
   // Put together the content of the repository
   const content = (
     <Wrapper>
       <RepoLink href={item.html_url} target="_blank">
-        {nameprefix + item.name}
+        {item.name}
       </RepoLink>
       <IssueLink href={`${item.html_url}/issues`} target="_blank">
         <IssueIcon />
@@ -44,13 +39,8 @@ export function RepoListItem(props) {
   return <ListItem key={`repo-list-item-${item.full_name}`} item={content} />;
 }
 
-RepoListItem.propTypes = {
+RewardListItem.propTypes = {
   item: PropTypes.object,
-  currentUser: PropTypes.string,
 };
 
-export default connect(
-  createStructuredSelector({
-    currentUser: makeSelectCurrentUser(),
-  }),
-)(RepoListItem);
+export default RewardListItem;
