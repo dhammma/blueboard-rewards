@@ -7,9 +7,17 @@ const DELAY = 1000;
  * Mock API
  */
 class Api {
-  fetchRewards = () =>
+  fetchRewards = options =>
     new Promise(resolve => {
-      setTimeout(() => resolve(rewards), DELAY);
+      setTimeout(() => {
+        let response = rewards;
+
+        if (options.status) {
+          response = response.filter(item => item.status === options.status);
+        }
+
+        resolve(response);
+      }, DELAY);
     });
 
   fetchUser = userId =>

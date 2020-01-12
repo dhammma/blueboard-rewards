@@ -1,16 +1,26 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { api } from 'services/api';
 import { LOAD_REWARDS } from 'containers/App/constants';
 import { rewardsLoaded, rewardsLoadingError } from 'containers/App/actions';
+import { makeSelectLocation } from 'containers/App/selectors';
+
+const getLocation = makeSelectLocation();
 
 /**
  * Rewards request/response handler
  */
 export function* getRewards() {
   try {
-    // Call our request helper (see 'utils/request')
-    const repos = yield call(api.fetchRewards);
-    yield put(rewardsLoaded(repos));
+    const location = yield select(getLocation);
+    const status = location.pathname.slice(1);
+    const options = {};
+
+    if (status) {
+      options.status = status;
+    }
+
+    const rewards = yield call(api.fetchRewards, options);
+    yield put(rewardsLoaded(rewards));
   } catch (err) {
     yield put(rewardsLoadingError(err));
   }
