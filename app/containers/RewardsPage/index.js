@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
+import { useLocation } from 'react-router-dom';
 import {
   makeSelectLoading,
   makeSelectError,
@@ -27,10 +28,11 @@ import saga from './saga';
 const key = 'rewards';
 
 export function RewardsPage({ loading, error, rewards, loadRewards }) {
+  const location = useLocation();
   useInjectSaga({ key, saga });
   useEffect(() => {
     loadRewards();
-  }, []);
+  }, [location]);
 
   const rewardsListProps = {
     loading,
