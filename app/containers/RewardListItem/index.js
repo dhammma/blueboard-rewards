@@ -9,11 +9,19 @@ import PropTypes from 'prop-types';
 import { FormattedNumber } from 'react-intl';
 
 import ListItem from 'components/ListItem';
-import IssueIcon from './IssueIcon';
-import IssueLink from './IssueLink';
-import RepoLink from './RepoLink';
+import RewardId from './Id';
+import RewardLink from './Title';
 import Wrapper from './Wrapper';
+import RewardUser from './User';
+import RewardStatus from './Status';
+import RewardDate from './Date';
+import Row from './Row';
 
+/*
+experience      user
+id              date
+status
+*/
 export function RewardListItem(props) {
   const { item } = props;
 
@@ -25,13 +33,17 @@ export function RewardListItem(props) {
   // Put together the content of the repository
   const content = (
     <Wrapper>
-      <RepoLink href={item.html_url} target="_blank">
-        {item.name}
-      </RepoLink>
-      <IssueLink href={`${item.html_url}/issues`} target="_blank">
-        <IssueIcon />
-        <FormattedNumber value={item.open_issues_count} />
-      </IssueLink>
+      <Row>
+        <RewardLink href={item.html_url} target="_blank">
+          {item.experience}
+        </RewardLink>
+        <RewardUser>{item.user}</RewardUser>
+      </Row>
+      <Row>
+        <RewardId>#{item.id}</RewardId>
+        <RewardStatus>{item.status}</RewardStatus>
+        <RewardDate>{item.date}</RewardDate>
+      </Row>
     </Wrapper>
   );
 
