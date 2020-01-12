@@ -2,14 +2,14 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
+import { statusList } from 'constants/rewards';
+
 import A from './A';
 import Img from './Img';
 import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
 import Banner from './blueboard-logo.svg';
 import messages from './messages';
-
-const statusList = ['new', 'scheduled', 'redeemed', 'completed'];
 
 function Header() {
   const location = useLocation();

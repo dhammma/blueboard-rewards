@@ -11,11 +11,12 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
-import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
+import RewardsPage from 'containers/RewardsPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
+
+import { statusList } from 'constants/rewards';
 
 import GlobalStyle from '../../global-styles';
 
@@ -32,15 +33,22 @@ export default function App() {
   return (
     <AppWrapper>
       <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
+        titleTemplate="%s - Blueboard rewards"
+        defaultTitle="Blueboard rewards"
       >
-        <meta name="description" content="A React.js Boilerplate application" />
+        <meta name="description" content="A test task for blueboard project" />
       </Helmet>
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
+        <Route exact path="/" component={RewardsPage} />
+        {statusList.map(status => (
+          <Route
+            key={status}
+            exact
+            path={`/${status}`}
+            component={RewardsPage}
+          />
+        ))}
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />
