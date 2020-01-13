@@ -7,6 +7,7 @@ import Row from './Row';
 import FilterByExperience from './FilterByExperience';
 import FilterByUser from './FilterByUser';
 import FilterByDate from './FilterByDate';
+import Sort from './Sort';
 import { useQueryParams } from './hooks';
 
 async function loadUserOptions(input) {
@@ -39,6 +40,7 @@ const RewardsFilters = () => {
       </Row>
       <Row>
         <FilterByDate />
+        <Sort />
       </Row>
     </Wrapper>
   );
