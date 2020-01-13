@@ -27,6 +27,31 @@ function filterByRange(items, from, to) {
   });
 }
 
+const comparators = {
+  id: (a, b) => b - a,
+  experience: (a, b) => b.localeCompare(a),
+  date: (a, b) => {
+    const dateA = DateTime.fromFormat(a, 'D');
+    const dateB = DateTime.fromFormat(b, 'D');
+
+    return dateB - dateA;
+  },
+};
+
+function sort(items, by) {
+  const sortedItems = [...items];
+  const order = by.charAt(0) === '-' ? 1 : -1;
+  const field = by.slice(1);
+  const compare = comparators[field];
+
+  return sortedItems.sort((a, b) => {
+    const fieldA = a[field];
+    const fieldB = b[field];
+
+    return order * compare(fieldA, fieldB);
+  });
+}
+
 /**
  * Mock API
  */
@@ -54,6 +79,10 @@ class Api {
       });
 
       response = fuse.search(options.experience);
+    }
+
+    if (options.sort) {
+      response = sort(response, options.sort);
     }
 
     return simulate(response);

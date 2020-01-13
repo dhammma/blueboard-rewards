@@ -31,7 +31,13 @@ export function* getRewards() {
     const status = yield call(() => location.pathname.slice(1));
     const queryParams = yield call(() => queryString.parse(location.search));
 
-    const options = pick(queryParams, ['userId', 'experience', 'from', 'to']);
+    const options = pick(queryParams, [
+      'userId',
+      'experience',
+      'from',
+      'to',
+      'sort',
+    ]);
 
     if (status) {
       options.status = status;
