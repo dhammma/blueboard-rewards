@@ -1,7 +1,4 @@
 import React from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import queryString from 'query-string';
-import omit from 'lodash/omit';
 
 import { api } from 'services/api';
 
@@ -9,6 +6,8 @@ import Wrapper from './Wrapper';
 import Row from './Row';
 import FilterByExperience from './FilterByExperience';
 import FilterByUser from './FilterByUser';
+import FilterByDate from './FilterByDate';
+import { useQueryParams } from './hooks';
 
 async function loadUserOptions(input) {
   const users = await api.fetchUserOptions(input);
@@ -20,26 +19,10 @@ async function loadUserOptions(input) {
 }
 
 const RewardsFilters = () => {
-  const location = useLocation();
-  const history = useHistory();
+  const [, setQueryParam] = useQueryParams();
 
   const onUserFilterChange = option => {
-    if (option) {
-      history.push({
-        pathname: location.pathname,
-        search: queryString.stringify({
-          ...queryString.parse(location.search),
-          userId: option.value,
-        }),
-      });
-    } else {
-      history.push({
-        pathname: location.pathname,
-        search: queryString.stringify(
-          omit(queryString.parse(location.search), ['userId']),
-        ),
-      });
-    }
+    setQueryParam('userId', option ? option.value : null);
   };
 
   return (
@@ -53,6 +36,9 @@ const RewardsFilters = () => {
           loadOptions={loadUserOptions}
           onChange={onUserFilterChange}
         />
+      </Row>
+      <Row>
+        <FilterByDate />
       </Row>
     </Wrapper>
   );

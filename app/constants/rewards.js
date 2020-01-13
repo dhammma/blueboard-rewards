@@ -6,3 +6,5 @@ export const sortOptions = {
   TITLE_ASC: 'TITLE_ASC',
   TITLE_DESC: 'TITLE_DESC',
 };
+
+export const dateFormat = 'yyyyMMdd';

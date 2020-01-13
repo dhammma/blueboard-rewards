@@ -7,6 +7,7 @@ import {
   takeLatest,
 } from 'redux-saga/effects';
 import uniq from 'lodash/uniq';
+import pick from 'lodash/pick';
 import queryString from 'query-string';
 import { api } from 'services/api';
 import { LOAD_REWARDS, LOAD_USER } from 'containers/App/constants';
@@ -29,18 +30,11 @@ export function* getRewards() {
     const location = yield select(getLocationSelector);
     const status = yield call(() => location.pathname.slice(1));
     const queryParams = yield call(() => queryString.parse(location.search));
-    const options = {};
+
+    const options = pick(queryParams, ['userId', 'experience', 'from', 'to']);
 
     if (status) {
       options.status = status;
-    }
-
-    if (queryParams.userId) {
-      options.userId = queryParams.userId;
-    }
-
-    if (queryParams.experience) {
-      options.experience = queryParams.experience;
     }
 
     const rewards = yield call(api.fetchRewards, options);

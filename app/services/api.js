@@ -1,12 +1,29 @@
 import Fuse from 'fuse.js';
+import { DateTime } from 'luxon';
 import { rewards } from 'mocks/rewards';
 import { users } from 'mocks/users';
+import { dateFormat } from 'constants/rewards';
 
 const DELAY = 1000;
 
 function simulate(response) {
   return new Promise(resolve => {
     setTimeout(() => resolve(response), DELAY);
+  });
+}
+
+function filterByRange(items, from, to) {
+  const fromDate = from ? DateTime.fromFormat(from, dateFormat) : null;
+  const toDate = to ? DateTime.fromFormat(to, dateFormat) : null;
+  const stub = () => true;
+
+  const fromFilter = fromDate ? date => date >= fromDate : stub;
+  const toFilter = toDate ? date => date <= toDate : stub;
+
+  return items.filter(item => {
+    const date = DateTime.fromFormat(item.date, 'D');
+
+    return fromFilter(date) && toFilter(date);
   });
 }
 
@@ -25,6 +42,10 @@ class Api {
       response = response.filter(
         item => item.user.toString() === options.userId,
       );
+    }
+
+    if (options.from || options.to) {
+      response = filterByRange(response, options.from, options.to);
     }
 
     if (options.experience) {
