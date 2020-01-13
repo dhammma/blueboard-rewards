@@ -18,8 +18,8 @@ const sortOptionList = Object.keys(sortOptions).map(key => ({
 const Sort = ({ className }) => {
   const [queryParams, setQueryParam] = useQueryParams();
 
-  const handleSortChange = ({ value }) => {
-    setQueryParam('sort', value);
+  const handleSortChange = option => {
+    setQueryParam('sort', option ? option.value : null);
   };
 
   return (
@@ -29,6 +29,7 @@ const Sort = ({ className }) => {
         placeholder="Sort..."
         value={sortOptionList.find(item => item.value === queryParams.sort)}
         onChange={handleSortChange}
+        isClearable
       />
     </div>
   );
