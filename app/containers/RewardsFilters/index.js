@@ -7,7 +7,7 @@ import { api } from 'services/api';
 
 import Wrapper from './Wrapper';
 import Row from './Row';
-import FilterByName from './FilterByName';
+import FilterByExperience from './FilterByExperience';
 import FilterByUser from './FilterByUser';
 
 async function loadUserOptions(input) {
@@ -45,7 +45,7 @@ const RewardsFilters = () => {
   return (
     <Wrapper>
       <Row>
-        <FilterByName placeholder="Search experience..." />
+        <FilterByExperience placeholder="Search experience..." />
         <FilterByUser
           placeholder="User..."
           isClearable

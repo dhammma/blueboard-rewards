@@ -14,6 +14,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import FontFaceObserver from 'fontfaceobserver';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 
@@ -40,6 +42,8 @@ const openSansObserver = new FontFaceObserver('Open Sans', {});
 openSansObserver.load().then(() => {
   document.body.classList.add('fontLoaded');
 });
+
+library.add(faSearch, faTimes);
 
 // Create redux store with history
 const initialState = {};

@@ -39,6 +39,10 @@ export function* getRewards() {
       options.userId = queryParams.userId;
     }
 
+    if (queryParams.experience) {
+      options.experience = queryParams.experience;
+    }
+
     const rewards = yield call(api.fetchRewards, options);
     yield put(rewardsLoaded(rewards));
 
