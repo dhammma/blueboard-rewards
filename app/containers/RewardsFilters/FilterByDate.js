@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { DateTime } from 'luxon';
+import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { dateFormat } from 'constants/rewards';
@@ -21,6 +22,11 @@ const getDateValue = value => {
 
   return DateTime.fromFormat(value, dateFormat).toJSDate();
 };
+
+const StyledDatePicker = styled(DatePicker)`
+  height: 38px;
+  padding: 0.5em;
+`;
 
 const FilterByDate = () => {
   const [queryParams, setQueryParam] = useQueryParams();
@@ -45,7 +51,7 @@ const FilterByDate = () => {
 
   return (
     <div>
-      <DatePicker
+      <StyledDatePicker
         selected={startDate}
         onChange={handleChangeStartDate}
         placeholderText="From date"
@@ -54,7 +60,7 @@ const FilterByDate = () => {
         scrollableYearDropdown
       />
       &nbsp;
-      <DatePicker
+      <StyledDatePicker
         selected={endDate}
         onChange={handleChangeEndDate}
         placeholderText="To date"

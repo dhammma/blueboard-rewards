@@ -47,6 +47,7 @@ const FilterByExperience = ({ className }) => {
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
+        placeholder="Search by experience..."
       />
       <DiscardIcon show={inputValue !== ''} onClick={resetInput}>
         <FontAwesomeIcon icon="times" />
