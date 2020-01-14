@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const Title = styled(Link)`
+const Title = styled.h4`
   display: flex;
   align-items: center;
   cursor: pointer;

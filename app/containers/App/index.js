@@ -50,7 +50,7 @@ export default function App() {
             component={RewardsPage}
           />
         ))}
-        <Route path="/reward/:id" component={RewardPage} />
+        {/* <Route path="/reward/:id" component={RewardPage} /> */}
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />
