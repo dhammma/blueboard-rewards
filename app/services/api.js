@@ -88,6 +88,12 @@ class Api {
     return simulate(response);
   };
 
+  fetchReward = rewardId => {
+    const response = rewards.find(item => item.id.toString() === rewardId);
+
+    return simulate(response);
+  };
+
   fetchUser = userId => {
     const response = users.find(item => item.id === userId);
 

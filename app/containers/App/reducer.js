@@ -15,6 +15,9 @@ import {
   LOAD_USER,
   LOAD_USER_SUCCESS,
   LOAD_USER_ERROR,
+  LOAD_REWARD,
+  LOAD_REWARD_SUCCESS,
+  LOAD_REWARD_ERROR,
 } from './constants';
 
 // The initial state of the App
@@ -65,6 +68,33 @@ const appReducer = (state = initialState, action) =>
         draft.users[action.userId] = {
           loading: false,
           user: null,
+          error: action.error,
+        };
+        break;
+
+      case LOAD_REWARD:
+        draft.reward = {
+          loading: true,
+          rewardId: action.rewardId,
+          data: null,
+          error: null,
+        };
+        break;
+
+      case LOAD_REWARD_SUCCESS:
+        draft.reward = {
+          loading: false,
+          rewardId: action.rewardId,
+          data: action.reward,
+          error: null,
+        };
+        break;
+
+      case LOAD_REWARD_ERROR:
+        draft.reward = {
+          loading: false,
+          rewardId: action.rewardId,
+          data: null,
           error: action.error,
         };
         break;

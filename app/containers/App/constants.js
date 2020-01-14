@@ -16,3 +16,7 @@ export const LOAD_REWARDS_ERROR = 'boilerplate/App/LOAD_REWARDS_ERROR';
 export const LOAD_USER = 'boilerplate/App/LOAD_USER';
 export const LOAD_USER_SUCCESS = 'boilerplate/App/LOAD_USER_SUCCESS';
 export const LOAD_USER_ERROR = 'boilerplate/App/LOAD_USER_ERROR';
+
+export const LOAD_REWARD = 'boilerplate/App/LOAD_REWARD';
+export const LOAD_REWARD_SUCCESS = 'boilerplate/App/LOAD_REWARD_SUCCESS';
+export const LOAD_REWARD_ERROR = 'boilerplate/App/LOAD_REWARD_ERROR';

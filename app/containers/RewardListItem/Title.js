@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import NormalA from 'components/A';
+import { Link } from 'react-router-dom';
 
-const Title = styled(NormalA)`
+const Title = styled(Link)`
   display: flex;
   align-items: center;
   cursor: pointer;

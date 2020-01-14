@@ -36,9 +36,7 @@ export function RewardListItem(props) {
   const content = (
     <Wrapper>
       <Row>
-        <RewardLink href={item.html_url} target="_blank">
-          {item.experience}
-        </RewardLink>
+        <RewardLink to={`/reward/${item.id}`}>{item.experience}</RewardLink>
         <RewardUser>{user ? user.name : '-'}</RewardUser>
       </Row>
       <Row>

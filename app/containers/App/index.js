@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
 import RewardsPage from 'containers/RewardsPage/Loadable';
+import RewardPage from 'containers/RewardPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -49,6 +50,7 @@ export default function App() {
             component={RewardsPage}
           />
         ))}
+        <Route path="/reward/:id" component={RewardPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />

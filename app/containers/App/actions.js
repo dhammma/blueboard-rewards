@@ -22,6 +22,9 @@ import {
   LOAD_USER,
   LOAD_USER_SUCCESS,
   LOAD_USER_ERROR,
+  LOAD_REWARD,
+  LOAD_REWARD_SUCCESS,
+  LOAD_REWARD_ERROR,
 } from './constants';
 
 /**
@@ -84,6 +87,29 @@ export function userLoadingError(userId, error) {
   return {
     type: LOAD_USER_ERROR,
     userId,
+    error,
+  };
+}
+
+export function loadReward(rewardId) {
+  return {
+    type: LOAD_REWARD,
+    rewardId,
+  };
+}
+
+export function rewardLoaded(rewardId, reward) {
+  return {
+    type: LOAD_REWARD_SUCCESS,
+    rewardId,
+    reward,
+  };
+}
+
+export function rewardLoadingError(rewardId, error) {
+  return {
+    type: LOAD_REWARD_ERROR,
+    rewardId,
     error,
   };
 }
