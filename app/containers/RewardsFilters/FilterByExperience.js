@@ -12,47 +12,52 @@ const FilterByExperience = ({ className }) => {
   const [queryParams, setQueryParam] = useQueryParams();
   const initialValue = queryParams.experience || '';
   const [inputValue, setInputValue] = useState(initialValue);
-  const [searchValue, setSearchValue] = useState(initialValue);
-
-  useEffect(() => {
-    setQueryParam('experience', searchValue);
-  }, [searchValue]);
 
   const handleInputChange = event => {
     setInputValue(event.target.value);
 
     if (event.target.value === '') {
-      setSearchValue('');
+      setQueryParam('experience', '');
     }
   };
 
   const handleKeyDown = event => {
     if (event.key === 'Enter') {
-      setSearchValue(inputValue);
+      setQueryParam('experience', inputValue);
+      setInputValue('');
     }
   };
 
   const updateSearchValue = () => {
-    setSearchValue(inputValue);
+    setQueryParam('experience', inputValue);
+    setInputValue('');
   };
 
   const resetInput = () => {
     setInputValue('');
-    setSearchValue('');
+    setQueryParam('experience', '');
   };
 
   return (
     <div className={className}>
       <Input
-        value={inputValue}
+        value={inputValue || queryParams.experience || ''}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         placeholder="Search by experience..."
       />
-      <DiscardIcon show={inputValue !== ''} onClick={resetInput}>
+      <DiscardIcon
+        show={inputValue !== '' || queryParams.experience !== ''}
+        onClick={resetInput}
+      >
         <FontAwesomeIcon icon="times" />
       </DiscardIcon>
-      <Popup show={searchValue !== inputValue} onClick={updateSearchValue}>
+      <Popup
+        show={
+          inputValue !== '' && (queryParams.experience || '') !== inputValue
+        }
+        onClick={updateSearchValue}
+      >
         <FontAwesomeIcon icon="search" />
         <span style={{ paddingLeft: '1em' }}>Search for this text</span>
       </Popup>
