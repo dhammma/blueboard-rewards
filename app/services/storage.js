@@ -6,8 +6,8 @@ class Storage {
     const storeJson = localStorage.getItem('store');
 
     if (!storeJson) {
-      // this.store = { rewards, users };
-      // localStorage.setItem('store', JSON.stringify(this.store));
+      this.store = { rewards, users };
+      localStorage.setItem('store', JSON.stringify(this.store));
     } else {
       this.store = JSON.parse(storeJson);
     }
