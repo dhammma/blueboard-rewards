@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AsyncSelect from 'react-select/async';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -22,8 +22,23 @@ const StyledSelect = styled(AsyncSelect)`
   }
 `;
 
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
 const UserDropdown = props => {
   const [value, setValue] = useState(null);
+  const prevUserId = usePrevious(props.userId);
+
+  useEffect(() => {
+    if (!props.userId && prevUserId) {
+      setValue(null);
+    }
+  }, [prevUserId, props.userId]);
 
   useEffect(() => {
     async function setUserValue() {
