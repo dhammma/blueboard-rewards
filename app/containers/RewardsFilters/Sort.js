@@ -27,7 +27,9 @@ const Sort = ({ className }) => {
       <StyledSelect
         options={sortOptionList}
         placeholder="Sort..."
-        value={sortOptionList.find(item => item.value === queryParams.sort)}
+        value={
+          sortOptionList.find(item => item.value === queryParams.sort) || null
+        }
         onChange={handleSortChange}
         isClearable
       />
