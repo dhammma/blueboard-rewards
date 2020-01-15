@@ -44,7 +44,7 @@ const RewardsPage = () => {
           content="A React.js Boilerplate application homepage"
         />
       </Helmet>
-      <RewardForm reward={reward} loading={isLoading} />
+      {!!reward && <RewardForm reward={reward} />}
     </div>
   );
 };
