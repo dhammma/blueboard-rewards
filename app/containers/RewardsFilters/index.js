@@ -1,26 +1,16 @@
 import React from 'react';
 
-import { api } from 'services/api';
+import UserDropdown from 'containers/UserDropdown';
 
 import Wrapper from './Wrapper';
 import Row from './Row';
 import FilterByExperience from './FilterByExperience';
-import FilterByUser from './FilterByUser';
 import FilterByDate from './FilterByDate';
 import Sort from './Sort';
 import { useQueryParams } from './hooks';
 
-async function loadUserOptions(input) {
-  const users = await api.fetchUserOptions(input);
-
-  return users.map(item => ({
-    value: item.id,
-    label: item.name,
-  }));
-}
-
 const RewardsFilters = () => {
-  const [, setQueryParam] = useQueryParams();
+  const [queryParams, setQueryParam] = useQueryParams();
 
   const onUserFilterChange = option => {
     setQueryParam('userId', option ? option.value : null);
@@ -30,11 +20,10 @@ const RewardsFilters = () => {
     <Wrapper>
       <Row>
         <FilterByExperience placeholder="Search experience..." />
-        <FilterByUser
+        <UserDropdown
+          userId={queryParams.userId}
           placeholder="User..."
           isClearable
-          cacheOptions
-          loadOptions={loadUserOptions}
           onChange={onUserFilterChange}
         />
       </Row>

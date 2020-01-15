@@ -89,13 +89,17 @@ class Api {
   };
 
   fetchReward = rewardId => {
-    const response = rewards.find(item => item.id.toString() === rewardId);
+    const response = rewards.find(
+      item => item.id.toString() === rewardId.toString(),
+    );
 
     return simulate(response);
   };
 
   fetchUser = userId => {
-    const response = users.find(item => item.id === userId);
+    const response = users.find(
+      item => item.id.toString() === userId.toString(),
+    );
 
     return simulate(response);
   };
