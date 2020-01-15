@@ -21,6 +21,9 @@ const RewardsPage = () => {
   const isLoading = useSelector(state =>
     get(state, ['global', 'reward', 'loading'], true),
   );
+  const isUpdating = useSelector(state =>
+    get(state, ['global', 'reward', 'updating'], false),
+  );
   const reward = useSelector(state =>
     get(state, ['global', 'reward', 'data'], null),
   );
@@ -31,7 +34,7 @@ const RewardsPage = () => {
     dispatch(AppActions.loadReward(id));
   }, [id]);
 
-  if (isLoading) {
+  if (isLoading || isUpdating) {
     return <LoadingIndicator />;
   }
 

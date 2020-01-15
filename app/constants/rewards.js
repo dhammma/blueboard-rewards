@@ -10,3 +10,4 @@ export const sortOptions = {
 };
 
 export const dateFormat = 'yyyyMMdd';
+export const externalDateFormat = 'M/d/yyyy';

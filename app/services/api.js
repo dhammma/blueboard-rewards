@@ -1,6 +1,6 @@
 import Fuse from 'fuse.js';
 import { DateTime } from 'luxon';
-import { dateFormat } from 'constants/rewards';
+import { dateFormat, externalDateFormat } from 'constants/rewards';
 
 import { storage } from './storage';
 
@@ -21,7 +21,7 @@ function filterByRange(items, from, to) {
   const toFilter = toDate ? date => date <= toDate : stub;
 
   return items.filter(item => {
-    const date = DateTime.fromFormat(item.date, 'D');
+    const date = DateTime.fromFormat(item.date, externalDateFormat);
 
     return fromFilter(date) && toFilter(date);
   });
@@ -31,8 +31,8 @@ const comparators = {
   id: (a, b) => b - a,
   experience: (a, b) => b.localeCompare(a),
   date: (a, b) => {
-    const dateA = DateTime.fromFormat(a, 'D');
-    const dateB = DateTime.fromFormat(b, 'D');
+    const dateA = DateTime.fromFormat(a, externalDateFormat);
+    const dateB = DateTime.fromFormat(b, externalDateFormat);
 
     return dateB - dateA;
   },
@@ -94,6 +94,12 @@ class Api {
       .find(item => item.id.toString() === rewardId.toString());
 
     return simulate(response);
+  };
+
+  updateReward = (rewardId, reward) => {
+    storage.updateReward(rewardId, reward);
+
+    return this.fetchReward(rewardId);
   };
 
   fetchUser = userId => {

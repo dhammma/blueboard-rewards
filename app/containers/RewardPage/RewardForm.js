@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller, ErrorMessage } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import Select from 'react-select';
@@ -9,8 +10,9 @@ import PropTypes from 'prop-types';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { statusList } from 'constants/rewards';
+import { statusList, externalDateFormat } from 'constants/rewards';
 import UserDropdown from 'containers/UserDropdown';
+import * as Actions from 'containers/App/actions';
 
 import Row from './Row';
 import Label from './Label';
@@ -50,11 +52,13 @@ const StyledDatePicker = styled(DatePicker)`
 `;
 
 const RewardForm = ({ reward }) => {
+  const dispatch = useDispatch();
+  const updating = useSelector(state => state.global.reward.updating);
   const defaultValues = useMemo(
     () => ({
       experience: reward.experience,
       user: reward.user,
-      date: DateTime.fromFormat(reward.date, 'D').toJSDate(),
+      date: DateTime.fromFormat(reward.date, externalDateFormat).toJSDate(),
       status: statusOptions.find(item => item.value === reward.status),
     }),
     [reward],
@@ -72,7 +76,16 @@ const RewardForm = ({ reward }) => {
     defaultValues,
   });
 
-  const onSubmit = values => {};
+  const onSubmit = values => {
+    const nextReward = {
+      experience: values.experience,
+      user: values.user,
+      status: values.status.value,
+      date: DateTime.fromJSDate(values.date).toFormat(externalDateFormat),
+    };
+
+    dispatch(Actions.updateReward(reward.id, nextReward));
+  };
 
   const resetForm = () => {
     reset(defaultValues);
@@ -92,6 +105,7 @@ const RewardForm = ({ reward }) => {
               required: 'Required',
             })}
             placeholder="Experience title"
+            disabled={updating}
           />
           <ErrorMessage
             as={
@@ -114,6 +128,7 @@ const RewardForm = ({ reward }) => {
               showYearDropdown
               scrollableYearDropdown
               selected={selectedDate}
+              disabled={updating}
             />
           }
           control={control}
@@ -124,7 +139,9 @@ const RewardForm = ({ reward }) => {
         <Label>User</Label>
         <Controller
           name="user"
-          as={<StyledUserDropdown userId={selectedUserId} />}
+          as={
+            <StyledUserDropdown userId={selectedUserId} disabled={updating} />
+          }
           control={control}
           rules={{ required: true }}
         />
@@ -133,7 +150,7 @@ const RewardForm = ({ reward }) => {
         <Label>Status</Label>
         <Controller
           name="status"
-          as={<StyledSelect options={statusOptions} />}
+          as={<StyledSelect options={statusOptions} disabled={updating} />}
           control={control}
           rules={{ required: true }}
           onChange={([selected]) =>
@@ -142,10 +159,14 @@ const RewardForm = ({ reward }) => {
         />
       </Row>
       <Row centered>
-        <input type="submit" value="Save changes" disabled={!formState.dirty} />
+        <input
+          type="submit"
+          value={updating ? 'Saving...' : 'Save changes'}
+          disabled={!formState.dirty || updating}
+        />
         <button
           type="button"
-          disabled={!formState.dirty}
+          disabled={!formState.dirty || updating}
           style={{ marginLeft: '1em' }}
           onClick={resetForm}
         >

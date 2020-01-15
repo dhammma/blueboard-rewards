@@ -19,6 +19,9 @@ import {
   LOAD_REWARD,
   LOAD_REWARD_SUCCESS,
   LOAD_REWARD_ERROR,
+  UPDATE_REWARD,
+  UPDATE_REWARD_SUCCESS,
+  UPDATE_REWARD_ERROR,
 } from './constants';
 
 // The initial state of the App
@@ -98,6 +101,18 @@ const appReducer = (state = initialState, action) =>
           data: null,
           error: action.error,
         };
+        break;
+
+      case UPDATE_REWARD:
+        draft.reward.updating = true;
+        break;
+      case UPDATE_REWARD_SUCCESS:
+        draft.reward.updating = false;
+        draft.reward.data = action.reward;
+        break;
+      case UPDATE_REWARD_ERROR:
+        draft.reward.updating = false;
+        draft.reward.updatingError = action.error;
         break;
     }
   });

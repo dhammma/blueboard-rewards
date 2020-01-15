@@ -25,6 +25,9 @@ import {
   LOAD_REWARD,
   LOAD_REWARD_SUCCESS,
   LOAD_REWARD_ERROR,
+  UPDATE_REWARD,
+  UPDATE_REWARD_SUCCESS,
+  UPDATE_REWARD_ERROR,
 } from './constants';
 
 /**
@@ -109,6 +112,30 @@ export function rewardLoaded(rewardId, reward) {
 export function rewardLoadingError(rewardId, error) {
   return {
     type: LOAD_REWARD_ERROR,
+    rewardId,
+    error,
+  };
+}
+
+export function updateReward(rewardId, reward) {
+  return {
+    type: UPDATE_REWARD,
+    rewardId,
+    reward,
+  };
+}
+
+export function rewardUpdated(rewardId, reward) {
+  return {
+    type: UPDATE_REWARD_SUCCESS,
+    rewardId,
+    reward,
+  };
+}
+
+export function rewardUpdatingError(rewardId, error) {
+  return {
+    type: UPDATE_REWARD_ERROR,
     rewardId,
     error,
   };

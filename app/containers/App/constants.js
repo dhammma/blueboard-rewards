@@ -20,3 +20,7 @@ export const LOAD_USER_ERROR = 'boilerplate/App/LOAD_USER_ERROR';
 export const LOAD_REWARD = 'boilerplate/App/LOAD_REWARD';
 export const LOAD_REWARD_SUCCESS = 'boilerplate/App/LOAD_REWARD_SUCCESS';
 export const LOAD_REWARD_ERROR = 'boilerplate/App/LOAD_REWARD_ERROR';
+
+export const UPDATE_REWARD = 'boilerplate/App/UPDATE_REWARD';
+export const UPDATE_REWARD_SUCCESS = 'boilerplate/App/UPDATE_REWARD_SUCCESS';
+export const UPDATE_REWARD_ERROR = 'boilerplate/App/UPDATE_REWARD_ERROR';
