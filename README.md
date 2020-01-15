@@ -22,6 +22,7 @@ https://blueboard-rewards.firebaseapp.com/
 1. I'm using `redux-actions` library for describing actions and reducers
 2. I carefully design the app state
 3. I carefully design reusable parts of code for interactions with API
+4. I'm using css modules for styling
 
 ## What can be improved
 
