@@ -8,6 +8,7 @@
  */
 
 import produce from 'immer';
+import get from 'lodash/get';
 import {
   LOAD_REWARDS,
   LOAD_REWARDS_SUCCESS,
@@ -51,7 +52,7 @@ const appReducer = (state = initialState, action) =>
       case LOAD_USER:
         draft.users[action.userId] = {
           loading: true,
-          user: null,
+          user: get(state, ['users', action.userId, 'user'], null),
           error: false,
         };
         break;
