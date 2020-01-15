@@ -1,8 +1,8 @@
 import Fuse from 'fuse.js';
 import { DateTime } from 'luxon';
-import { rewards } from 'mocks/rewards';
-import { users } from 'mocks/users';
 import { dateFormat } from 'constants/rewards';
+
+import { storage } from './storage';
 
 const DELAY = 1000;
 
@@ -57,7 +57,7 @@ function sort(items, by) {
  */
 class Api {
   fetchRewards = options => {
-    let response = rewards;
+    let response = storage.getRewards();
 
     if (options.status) {
       response = response.filter(item => item.status === options.status);
@@ -89,23 +89,23 @@ class Api {
   };
 
   fetchReward = rewardId => {
-    const response = rewards.find(
-      item => item.id.toString() === rewardId.toString(),
-    );
+    const response = storage
+      .getRewards()
+      .find(item => item.id.toString() === rewardId.toString());
 
     return simulate(response);
   };
 
   fetchUser = userId => {
-    const response = users.find(
-      item => item.id.toString() === userId.toString(),
-    );
+    const response = storage
+      .getUsers()
+      .find(item => item.id.toString() === userId.toString());
 
     return simulate(response);
   };
 
   fetchUserOptions = input => {
-    const fuse = new Fuse(users, {
+    const fuse = new Fuse(storage.getUsers(), {
       keys: ['name'],
     });
 
