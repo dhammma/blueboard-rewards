@@ -25,13 +25,6 @@ export function RewardListItem(props) {
     get(state, ['global', 'users', get(item, 'user'), 'user'], null),
   );
 
-  if (!item) {
-    console.log('remove it');
-    return null;
-  }
-
-  console.log('render item');
-
   // Put together the content of the repository
   const content = (
     <Wrapper>

@@ -2,20 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import List from 'components/List';
-import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
 import RewardListItem from 'containers/RewardListItem';
 
 function RewardsList({ loading, error, rewards }) {
   if (loading) {
-    return <List component={LoadingIndicator} />;
+    return <LoadingIndicator />;
   }
 
   if (error !== false) {
-    const ErrorComponent = () => (
-      <ListItem item="Something went wrong, please try again!" />
-    );
-    return <List component={ErrorComponent} />;
+    return <div>Something went wrong</div>;
   }
 
   if (rewards !== false) {
