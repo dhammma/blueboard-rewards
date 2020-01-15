@@ -10,6 +10,8 @@ import PropTypes from 'prop-types';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { statusList } from 'constants/rewards';
+import UserDropdown from 'containers/UserDropdown';
+
 import Row from './Row';
 import Label from './Label';
 
@@ -24,6 +26,13 @@ const StyledInput = styled.input`
   padding: 6px 8px;
   font-size: 14px;
   color: #2e2e2e;
+`;
+
+const StyledUserDropdown = styled(UserDropdown)`
+  width: 170px;
+  min-width: 170px;
+  color: #2e2e2e;
+  margin-left: 0;
 `;
 
 const StyledSelect = styled(Select)`
@@ -70,6 +79,7 @@ const RewardForm = ({ reward }) => {
   };
 
   const selectedDate = watch('date');
+  const selectedUserId = watch('user');
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -112,7 +122,12 @@ const RewardForm = ({ reward }) => {
       </Row>
       <Row>
         <Label>User</Label>
-        <StyledSelect />
+        <Controller
+          name="user"
+          as={<StyledUserDropdown userId={selectedUserId} />}
+          control={control}
+          rules={{ required: true }}
+        />
       </Row>
       <Row>
         <Label>Status</Label>
